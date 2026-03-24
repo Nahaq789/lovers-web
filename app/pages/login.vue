@@ -13,34 +13,34 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center p-6" style="background-color: #1A1F24;">
-    <div class="w-full max-w-sm">
+  <div class="min-h-screen flex items-center justify-center p-4 sm:p-6" style="background-color: #1A1F24;">
+    <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
 
       <!-- ロゴ + アプリ名 -->
-      <div class="flex flex-col items-center mb-10">
+      <div class="flex flex-col items-center mb-8 sm:mb-10">
         <img
           src="~/assets/images/app_logo.png"
           alt="Lovers"
-          class="size-20 mb-3 object-contain"
+          class="size-16 sm:size-20 mb-3 object-contain"
         />
         <span
-          class="text-2xl font-bold tracking-wide text-white"
+          class="text-3xl sm:text-4xl font-bold tracking-wide text-white"
           style="font-family: 'JetBrains Mono', monospace;"
         >
-          Lovers
+          ll
         </span>
       </div>
 
       <!-- ヘッダー -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-white mb-1">Welcome back</h1>
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1">Welcome back</h1>
         <p class="text-sm font-medium" style="color: #39D2C0;">
           Login to access your account below.
         </p>
       </div>
 
       <!-- フォーム -->
-      <div class="space-y-4">
+      <div class="space-y-3 sm:space-y-4">
 
         <!-- メールアドレス -->
         <div class="relative">
@@ -117,10 +117,10 @@ async function handleSubmit() {
         </Transition>
 
         <!-- Forgot Password & ログインボタン -->
-        <div class="flex items-center justify-between pt-2">
+        <div class="flex items-center justify-between pt-1 sm:pt-2">
           <NuxtLink
             to="/forgot-password"
-            class="text-sm font-medium transition-opacity hover:opacity-75"
+            class="text-xs sm:text-sm font-medium transition-opacity hover:opacity-75"
             style="color: #9489F5;"
           >
             Forgot Password?
@@ -128,7 +128,7 @@ async function handleSubmit() {
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             style="background-color: #39D2C0;"
             :disabled="isLoading"
             @click="handleSubmit"
@@ -145,11 +145,11 @@ async function handleSubmit() {
       </div>
 
       <!-- Don't have an account? -->
-      <div class="flex items-center justify-center mt-8 gap-1">
-        <span class="text-sm text-gray-400">Don't have an account?</span>
+      <div class="flex items-center justify-center mt-6 sm:mt-8 gap-1">
+        <span class="text-xs sm:text-sm text-gray-400">Don't have an account?</span>
         <NuxtLink
           to="/register"
-          class="text-sm font-medium transition-opacity hover:opacity-75"
+          class="text-xs sm:text-sm font-medium transition-opacity hover:opacity-75"
           style="color: #9489F5;"
         >
           Create →
