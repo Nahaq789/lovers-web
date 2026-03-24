@@ -13,60 +13,90 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background flex items-center justify-center p-6">
-    <div class="w-full max-w-sm space-y-8">
+  <div class="min-h-screen flex items-center justify-center p-6" style="background-color: #1A1F24;">
+    <div class="w-full max-w-sm">
+
+      <!-- ロゴ + アプリ名 -->
+      <div class="flex flex-col items-center mb-10">
+        <img
+          src="~/assets/images/app_logo.png"
+          alt="Lovers"
+          class="size-20 mb-3 object-contain"
+        />
+        <span
+          class="text-2xl font-bold tracking-wide text-white"
+          style="font-family: 'JetBrains Mono', monospace;"
+        >
+          Lovers
+        </span>
+      </div>
 
       <!-- ヘッダー -->
-      <div class="space-y-1">
-        <h1 class="text-3xl font-bold tracking-tight text-foreground">
-          Welcome back
-        </h1>
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-white mb-1">Welcome back</h1>
         <p class="text-sm font-medium" style="color: #39D2C0;">
           Login to access your account below.
         </p>
       </div>
 
       <!-- フォーム -->
-      <div class="space-y-5">
+      <div class="space-y-4">
 
         <!-- メールアドレス -->
-        <div class="space-y-1.5">
-          <Label for="email">Email Address</Label>
-          <Input
+        <div class="relative">
+          <label
+            for="email"
+            class="absolute left-4 top-2 text-xs font-medium transition-colors"
+            :style="email ? 'color: #9489F5;' : 'color: #C0C0C0;'"
+          >
+            Email Address
+          </label>
+          <input
             id="email"
             v-model="email"
             type="email"
             placeholder="Enter your email..."
             autocomplete="email"
             :disabled="isLoading"
+            class="w-full pt-7 pb-3 px-4 rounded-xl text-white text-sm outline-none placeholder-gray-600 disabled:opacity-50 transition-all"
+            style="background-color: #101213; border: none;"
+            @focus="$event.target.previousElementSibling.style.color = '#9489F5'"
+            @blur="$event.target.previousElementSibling.style.color = email ? '#9489F5' : '#C0C0C0'"
           />
         </div>
 
         <!-- パスワード -->
-        <div class="space-y-1.5">
-          <Label for="password">Password</Label>
-          <div class="relative">
-            <Input
-              id="password"
-              v-model="password"
-              :type="showPassword ? 'text' : 'password'"
-              placeholder="Enter your password..."
-              autocomplete="current-password"
-              class="pr-10"
-              :disabled="isLoading"
+        <div class="relative">
+          <label
+            for="password"
+            class="absolute left-4 top-2 text-xs font-medium transition-colors"
+            :style="password ? 'color: #9489F5;' : 'color: #C0C0C0;'"
+          >
+            Password
+          </label>
+          <input
+            id="password"
+            v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Enter your password..."
+            autocomplete="current-password"
+            :disabled="isLoading"
+            class="w-full pt-7 pb-3 pl-4 pr-12 rounded-xl text-white text-sm outline-none placeholder-gray-600 disabled:opacity-50 transition-all"
+            style="background-color: #101213; border: none;"
+            @focus="$event.target.previousElementSibling.style.color = '#9489F5'"
+            @blur="$event.target.previousElementSibling.style.color = password ? '#9489F5' : '#C0C0C0'"
+          />
+          <button
+            type="button"
+            class="absolute right-3 inset-y-0 flex items-center text-gray-500 hover:text-gray-300 transition-colors"
+            :aria-label="showPassword ? 'パスワードを隠す' : 'パスワードを表示'"
+            @click="showPassword = !showPassword"
+          >
+            <Icon
+              :name="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
+              class="size-4"
             />
-            <button
-              type="button"
-              class="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-colors"
-              :aria-label="showPassword ? 'パスワードを隠す' : 'パスワードを表示'"
-              @click="showPassword = !showPassword"
-            >
-              <Icon
-                :name="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
-                class="size-4"
-              />
-            </button>
-          </div>
+          </button>
         </div>
 
         <!-- エラーメッセージ -->
@@ -78,7 +108,7 @@ async function handleSubmit() {
         >
           <p
             v-if="errorMessage"
-            class="text-sm text-destructive flex items-center gap-1.5"
+            class="text-sm text-red-400 flex items-center gap-1.5"
             role="alert"
           >
             <Icon name="lucide:circle-alert" class="size-4 shrink-0" />
@@ -87,10 +117,10 @@ async function handleSubmit() {
         </Transition>
 
         <!-- Forgot Password & ログインボタン -->
-        <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center justify-between pt-2">
           <NuxtLink
             to="/forgot-password"
-            class="text-sm font-medium transition-opacity hover:opacity-80 shrink-0"
+            class="text-sm font-medium transition-opacity hover:opacity-75"
             style="color: #9489F5;"
           >
             Forgot Password?
@@ -98,7 +128,7 @@ async function handleSubmit() {
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             style="background-color: #39D2C0;"
             :disabled="isLoading"
             @click="handleSubmit"
@@ -112,6 +142,18 @@ async function handleSubmit() {
           </button>
         </div>
 
+      </div>
+
+      <!-- Don't have an account? -->
+      <div class="flex items-center justify-center mt-8 gap-1">
+        <span class="text-sm text-gray-400">Don't have an account?</span>
+        <NuxtLink
+          to="/register"
+          class="text-sm font-medium transition-opacity hover:opacity-75"
+          style="color: #9489F5;"
+        >
+          Create →
+        </NuxtLink>
       </div>
 
     </div>
