@@ -7,16 +7,20 @@ const showPassword = ref(false);
 const isLoading = ref(false);
 const errorMessage = ref("");
 
-async function handleSubmit() {
-  // TODO: バリデーション → useAuth().login(email.value, password.value)
-}
+const { handleLogin } = useAuth();
+
+const onSubmit = async () => {
+  console.log("Email:", email.value);
+  console.log("Password:", password.value);
+
+  const result = await handleLogin(email.value, password.value);
+};
 </script>
 
 <template>
   <div class="min-h-screen flex items-center justify-center p-4 sm:p-6" style="background-color: #1A1F24;">
     <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
 
-      <!-- ロゴ + アプリ名 -->
       <div class="flex flex-col items-center mb-8 sm:mb-10">
         <img
           src="~/assets/images/app_logo.png"
@@ -31,7 +35,6 @@ async function handleSubmit() {
         </span>
       </div>
 
-      <!-- ヘッダー -->
       <div class="mb-6 sm:mb-8">
         <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1">Welcome back</h1>
         <p class="text-sm font-medium" style="color: #39D2C0;">
@@ -39,10 +42,8 @@ async function handleSubmit() {
         </p>
       </div>
 
-      <!-- フォーム -->
       <div class="space-y-3 sm:space-y-4">
 
-        <!-- メールアドレス -->
         <div class="relative">
           <label
             for="email"
@@ -65,7 +66,6 @@ async function handleSubmit() {
           />
         </div>
 
-        <!-- パスワード -->
         <div class="relative">
           <label
             for="password"
@@ -99,7 +99,6 @@ async function handleSubmit() {
           </button>
         </div>
 
-        <!-- エラーメッセージ -->
         <Transition
           enter-active-class="transition-opacity duration-200"
           enter-from-class="opacity-0"
@@ -116,7 +115,6 @@ async function handleSubmit() {
           </p>
         </Transition>
 
-        <!-- Forgot Password & ログインボタン -->
         <div class="flex items-center justify-between pt-1 sm:pt-2">
           <NuxtLink
             to="/forgot-password"
@@ -131,7 +129,7 @@ async function handleSubmit() {
             class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             style="background-color: #39D2C0;"
             :disabled="isLoading"
-            @click="handleSubmit"
+            @click="onSubmit"
           >
             <Icon
               v-if="isLoading"
@@ -144,7 +142,6 @@ async function handleSubmit() {
 
       </div>
 
-      <!-- Don't have an account? -->
       <div class="flex items-center justify-center mt-6 sm:mt-8 gap-1">
         <span class="text-xs sm:text-sm text-gray-400">Don't have an account?</span>
         <NuxtLink
