@@ -10,7 +10,10 @@ const errorMessage = ref('');
 const { handleLogin } = useAuth();
 
 const onSubmit = async () => {
+  errorMessage.value = '';
+  isLoading.value = true;
   const result = await handleLogin(email.value, password.value);
+  isLoading.value = false;
   if (!result.success) {
     errorMessage.value =
       result.error ?? 'An unexpected error occurred. Please try again.';
@@ -147,7 +150,7 @@ const onSubmit = async () => {
       <div class="flex items-center justify-center mt-6 sm:mt-8 gap-1">
         <span class="text-xs sm:text-sm text-gray-400">Don't have an account?</span>
         <NuxtLink
-          to="/register"
+          to="/signup"
           class="text-xs sm:text-sm font-medium transition-opacity hover:opacity-75"
           style="color: #9489F5;"
         >

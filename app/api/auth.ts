@@ -1,11 +1,15 @@
 export const AuthApi = () => {
   const { api } = useApi();
 
-  const login = async () => {
-    const reulst = api('/auth/login', {
+  const login = async (email: string, password: string) => {
+    const result = await api('/auth/login', {
       method: 'POST',
-      body: {},
+      body: {
+        email: email,
+        password: password,
+      },
     });
+    return result;
   };
 
   return {

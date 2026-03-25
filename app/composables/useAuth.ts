@@ -1,4 +1,5 @@
 import { AuthApi } from '~/api/auth';
+import { errorHandler } from '~/shared/errorHandler';
 
 export const useAuth = () => {
   const { login } = AuthApi();
@@ -16,6 +17,8 @@ export const useAuth = () => {
     email: string,
     password: string,
   ): Promise<{ success: boolean; error?: string }> => {
+    // テストで2秒待機
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     if (!validateEmail(email)) {
       return { success: false, error: 'Invalid email format' };
     }
@@ -26,7 +29,17 @@ export const useAuth = () => {
       };
     }
 
-    return { success: true };
+    try {
+      const result = await login(email, password);
+      console.log('Login result:', result);
+      return { success: true };
+    } catch (e) {
+      errorHandler('Login failed', e);
+      return {
+        success: false,
+        error: 'Login failed. Please check your credentials and try again.',
+      };
+    }
   };
 
   return {
