@@ -2,8 +2,8 @@ export const AuthApi = () => {
   const { api } = useApi();
 
   const login = async () => {
-    const reulst = api("/auth/login", {
-      method: "POST",
+    const reulst = api('/auth/login', {
+      method: 'POST',
       body: {},
     });
   };

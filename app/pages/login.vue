@@ -1,19 +1,21 @@
 <script setup lang="ts">
-definePageMeta({ middleware: "guest" });
+definePageMeta({ middleware: 'guest' });
 
-const email = ref("");
-const password = ref("");
+const email = ref('');
+const password = ref('');
 const showPassword = ref(false);
 const isLoading = ref(false);
-const errorMessage = ref("");
+const errorMessage = ref('');
 
 const { handleLogin } = useAuth();
 
 const onSubmit = async () => {
-  console.log("Email:", email.value);
-  console.log("Password:", password.value);
-
   const result = await handleLogin(email.value, password.value);
+  if (!result.success) {
+    errorMessage.value =
+      result.error ?? 'An unexpected error occurred. Please try again.';
+    return;
+  }
 };
 </script>
 
@@ -149,7 +151,7 @@ const onSubmit = async () => {
           class="text-xs sm:text-sm font-medium transition-opacity hover:opacity-75"
           style="color: #9489F5;"
         >
-          Create →
+          Create
         </NuxtLink>
       </div>
 

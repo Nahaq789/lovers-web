@@ -1,4 +1,4 @@
-import { AuthApi } from "~/api/auth";
+import { AuthApi } from '~/api/auth';
 
 export const useAuth = () => {
   const { login } = AuthApi();
@@ -12,13 +12,21 @@ export const useAuth = () => {
     return password.length >= 6;
   };
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleLogin = async (
+    email: string,
+    password: string,
+  ): Promise<{ success: boolean; error?: string }> => {
     if (!validateEmail(email)) {
-      throw new Error("Invalid email format");
+      return { success: false, error: 'Invalid email format' };
     }
     if (!validatePassword(password)) {
-      throw new Error("Password must be at least 6 characters long");
+      return {
+        success: false,
+        error: 'Password must be at least 6 characters long',
+      };
     }
+
+    return { success: true };
   };
 
   return {
