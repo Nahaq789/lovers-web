@@ -10,7 +10,7 @@ export const useAuth = () => {
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 6;
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
   };
 
   const handleLogin = async (
@@ -42,7 +42,16 @@ export const useAuth = () => {
     }
   };
 
+  const handleSignup = async (
+    _email: string,
+    _password: string,
+  ): Promise<{ success: boolean; error?: string }> => {
+    return { success: false, error: 'Signup functionality not implemented' };
+  };
+
   return {
+    validatePassword,
     handleLogin,
+    handleSignup,
   };
 };
